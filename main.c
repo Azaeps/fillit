@@ -6,14 +6,14 @@
 /*   By: thperchi <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/11 12:44:08 by thperchi     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/11 15:51:55 by thperchi    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/11 19:09:24 by thperchi    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-int		check_s(char *s)
+/*int		check_s(char *s)
 {
 	int x;
 	int y;
@@ -47,19 +47,46 @@ int		check_s(char *s)
 	return (0);
 }
 
-char	*read_fd(int fd)
+int		full_check(char *s)
 {
-	int	x;
-	int	y;
+	char	*check;
+	int		x;
+	int		y;
+
+	x = 0;
+	y = 0;
+	check = malloc(sizeof(char *) * 20);
+	while (s[x])
+	{
+		while (y != 20)
+		{
+			check[y] = s[x];
+			x++;
+			y++;
+		}
+		if (!check_s(check))
+			return (0);
+		free(check);
+		check = malloc(sizeof(char *) * 20);
+		y = 0;
+		x += 1;
+	}
+	return (1);
+}*/
+
+static char		*read_fd(int fd)
+{
+	int		x;
+	int		y;
 	char	*s;
 	char	c;
 
 	x = read(fd, &c, 1);
 	y = 0;
-	s = malloc(sizeof (char *) * 21); /*malloc juste pour les test*/
+	s = malloc(sizeof(char *) * 21); /*malloc juste pour les test*/
 	if (x == -1)
 		return (NULL);
-	while(x)
+	while (x)
 	{
 		s[y] = c; /* s a mallocer mais je sais pas a quelle taille */
 		y++;
@@ -69,11 +96,11 @@ char	*read_fd(int fd)
 	return (s);
 }
 
-int		main(int ac, char **av)
+int				main(int ac, char **av)
 {
-	char	*s;
-	int	fd;
-	t_test	*list;
+	char		*s;
+	int			fd;
+	t_fillit	*list;
 
 	if (ac != 2)
 	{
@@ -82,11 +109,12 @@ int		main(int ac, char **av)
 	}
 	fd = open(av[1], O_RDONLY);
 	s = read_fd(fd);
-	printf("%s", s);
-	if (!check_s(s))
+	if (!full_check(s))
 	{
 		printf("ca marche pas");
 		return (0);
 	}
+	list = (t_fillit *)malloc(sizeof(t_fillit));
+	stock(s, list);
 	return (0);
 }

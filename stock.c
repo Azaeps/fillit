@@ -1,30 +1,39 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   fillit.h                                         .::    .:/ .      .::   */
+/*   stock.c                                          .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: thperchi <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2019/02/11 19:05:38 by thperchi     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/11 19:11:31 by thperchi    ###    #+. /#+    ###.fr     */
+/*   Created: 2019/02/11 18:42:19 by thperchi     #+#   ##    ##    #+#       */
+/*   Updated: 2019/02/11 19:05:12 by thperchi    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#ifndef FILLIT_H
-# define FILLIT_H
+#include "fillit.h"
 
-# include "./libft/libft.h"
-# include <stdlib.h>
-# include <fcntl.h>
-# include <unistd.h>
-
-typedef struct		s_fillit
+void	stock(char *s, t_fillit *list)
 {
-	char			*s;
-	struct s_fillit	*next;
-}					t_fillit;
+	int x;
+	int y;
 
-int					full_check(char *s);
-void				stock(char *s, t_fillit *list);
-#endif
+	x = 0;
+	y = 0;
+	list->s = malloc(sizeof(char *) * 20);
+	while (s[x])
+	{
+		while (y != 20)
+		{
+			list->s[y] = s[x];
+			x++;
+			y++;
+		}
+		x += 1;
+		y = 0;
+		printf("%s", list->s);
+		list = list->next;
+		list = malloc(sizeof(t_fillit));
+		list->s = malloc(sizeof(char *) * 21);
+	}
+}
