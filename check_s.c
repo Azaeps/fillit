@@ -1,10 +1,19 @@
-#include "libft.h"
-#include "fillit.h"
-#include <stdlib.h>
-#include <fcntl.h>
-#include <unistd.h>
+/* ************************************************************************** */
+/*                                                          LE - /            */
+/*                                                              /             */
+/*   check_s.c                                        .::    .:/ .      .::   */
+/*                                                 +:+:+   +:    +:  +:+:+    */
+/*   By: thperchi <marvin@le-101.fr>                +:+   +:    +:    +:+     */
+/*                                                 #+#   #+    #+    #+#      */
+/*   Created: 2019/02/11 12:47:47 by thperchi     #+#   ##    ##    #+#       */
+/*   Updated: 2019/02/11 13:04:31 by thperchi    ###    #+. /#+    ###.fr     */
+/*                                                         /                  */
+/*                                                        /                   */
+/* ************************************************************************** */
 
-int	check_s(char *s)
+#include "fillit.h"
+
+int		check_s(char *s)
 {
 	int x;
 	int y;
@@ -15,18 +24,13 @@ int	check_s(char *s)
 	{
 		if (s[x] == '#')
 		{
-			if (s[x + 1] == '#')
-				y++;
-			if (s[x - 1] == '#')
-				y++;
-			if (s[x + 5] == '#')
-				y++;
-			if (s[x - 5] == '#')
+			if (s[x + 1] == '#' || s[x - 1] == '#' || s[x + 5] == '#'
+					|| s[x - 5] == '#')
 				y++;
 		}
 		x++;
 	}
-	if (y == 6 || y = 8)
+	if (y == 4)
 		return (1);
 	return (0);
 }

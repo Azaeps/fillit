@@ -1,8 +1,51 @@
-#include "libft.h"
+/* ************************************************************************** */
+/*                                                          LE - /            */
+/*                                                              /             */
+/*   main.c                                           .::    .:/ .      .::   */
+/*                                                 +:+:+   +:    +:  +:+:+    */
+/*   By: thperchi <marvin@le-101.fr>                +:+   +:    +:    +:+     */
+/*                                                 #+#   #+    #+    #+#      */
+/*   Created: 2019/02/11 12:44:08 by thperchi     #+#   ##    ##    #+#       */
+/*   Updated: 2019/02/11 15:51:55 by thperchi    ###    #+. /#+    ###.fr     */
+/*                                                         /                  */
+/*                                                        /                   */
+/* ************************************************************************** */
+
 #include "fillit.h"
-#include <stdlib.h>
-#include <fcntl.h>
-#include <unistd.h>
+
+int		check_s(char *s)
+{
+	int x;
+	int y;
+	int z;
+
+	x = 0;
+	y = 0;
+	z = 0;
+	while (s[x])
+	{
+		if (s[x] == '#')
+		{
+			if (s[x + 1] == '#')
+				y++;
+			if (s[x - 1] == '#')
+				y++;
+			if (s[x - 5] == '#')
+				y++;
+			if (s[x + 5] == '#')
+				y++;
+			z++;
+		}
+		if (s[x] != '.' && s[x] != '#' && s[x] != '\n' && s[x] != '\0')
+			return (0);
+		if ((x == 4 || x == 9 || x == 14) && s[x] != '\n')
+			return (0);
+		x++;
+	}
+	if ((y == 6 || y == 8) && z == 4 && x == 20)
+		return (1);
+	return (0);
+}
 
 char	*read_fd(int fd)
 {
@@ -13,6 +56,7 @@ char	*read_fd(int fd)
 
 	x = read(fd, &c, 1);
 	y = 0;
+	s = malloc(sizeof (char *) * 21); /*malloc juste pour les test*/
 	if (x == -1)
 		return (NULL);
 	while(x)
@@ -29,18 +73,19 @@ int		main(int ac, char **av)
 {
 	char	*s;
 	int	fd;
-	t_list	*list;
+	t_test	*list;
 
 	if (ac != 2)
 	{
-		/*usage (jsp ce que c'est xd)*/
+		ft_putstr("usage: fillit imput_file");
 		return (0);
 	}
 	fd = open(av[1], O_RDONLY);
 	s = read_fd(fd);
-	if (!check_s)
+	printf("%s", s);
+	if (!check_s(s))
 	{
-		/*error*/
+		printf("ca marche pas");
 		return (0);
 	}
 	return (0);
