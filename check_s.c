@@ -6,7 +6,7 @@
 /*   By: thperchi <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/11 12:47:47 by thperchi     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/11 18:38:00 by thperchi    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/16 05:50:28 by thperchi    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -24,8 +24,10 @@ static int		check_s(char *s)
 	z = 0;
 	while (s[x])
 	{
-		if (s[x] == '#')
+		if (s[x] == '#'/* && (s[x - 1] != '#' && s[x + 1] != '#'
+					&& s[x - 5] != '#' && s[x + 5] != '#')*/)
 		{
+			//return (0);
 			if (s[x + 1] == '#')
 				y++;
 			if (s[x - 1] == '#')
@@ -42,34 +44,41 @@ static int		check_s(char *s)
 			return (0);
 		x++;
 	}
+	printf("%d\n", y);
+	printf("%d\n", z);
 	if ((y == 6 || y == 8) && z == 4 && x == 20)
 		return (1);
 	return (0);
 }
 
-int				full_check(char *s)
+int				full_check(t_fillit *list)
 {
-	char	*check;
+//	char	*check;
 	int		x;
-	int		y;
+//	int		y;
 
 	x = 0;
-	y = 0;
-	check = malloc(sizeof(char *) * 20);
-	while (s[x])
+//	y = 0;
+//	check = malloc(sizeof(char *) * 21);
+	while (list)
 	{
-		while (y != 20)
+/*		while (y != 20)
 		{
-			check[y] = s[x];
+			check[y] = list->s[x];
 			x++;
 			y++;
 		}
-		if (!check_s(check))
+	//	printf("%s", check);*/
+		if (list->next->next == NULL)
+			return (1);
+		if (!check_s(list->s))
 			return (0);
-		free(check);
-		check = malloc(sizeof(char *) * 20);
-		y = 0;
-		x += 1;
+	//	free(check);
+	//	check = malloc(sizeof(char *) * 21);
+	//	y = 0;
+		x++;
+		printf("%d\n", x);
+		list = list->next;
 	}
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: thperchi <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/11 12:44:08 by thperchi     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/11 19:09:24 by thperchi    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/16 05:51:11 by thperchi    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -72,8 +72,39 @@ int		full_check(char *s)
 		x += 1;
 	}
 	return (1);
-}*/
+}
 
+t_fillit	*stock(int fd, t_fillit *list)
+{
+	int x;
+	int y;
+	int z;
+	char c;
+
+	x = 0;
+	y = 0;
+	z = read(fd, &c, 1);
+	list->s = malloc(sizeof(char *) * 20);
+	while (z)
+	{
+		while (y != 20)
+		{
+			list->s[y] = c;
+			x++;
+			y++;
+			z = read(fd, &c, 1);
+		}
+		list->s[y] = '\0';
+		if (c == '\n')
+			z = read(fd, &c, 1);
+		y = 0;
+		printf("%s", list->s);
+		list-> next = malloc(sizeof(t_fillit));
+		list = list->next;
+		list->s = malloc(sizeof(char *) * 20);
+	}
+	return (list);
+}
 static char		*read_fd(int fd)
 {
 	int		x;
@@ -83,18 +114,19 @@ static char		*read_fd(int fd)
 
 	x = read(fd, &c, 1);
 	y = 0;
-	s = malloc(sizeof(char *) * 21); /*malloc juste pour les test*/
+	if (!(s = (char *)malloc(sizeof(char *) * 20))) //malloc juste pour les test
+		return (NULL);
 	if (x == -1)
 		return (NULL);
 	while (x)
 	{
-		s[y] = c; /* s a mallocer mais je sais pas a quelle taille */
+		s[y] = c; // s a mallocer mais je sais pas a quelle taille
 		y++;
 		x = read(fd, &c, 1);
 	}
 	s[y] = '\0';
 	return (s);
-}
+}*/
 
 int				main(int ac, char **av)
 {
@@ -108,13 +140,13 @@ int				main(int ac, char **av)
 		return (0);
 	}
 	fd = open(av[1], O_RDONLY);
-	s = read_fd(fd);
-	if (!full_check(s))
+	list = (t_fillit *)malloc(sizeof(t_fillit));
+	stock(fd, list);
+	if (!full_check(list))
 	{
 		printf("ca marche pas");
 		return (0);
 	}
-	list = (t_fillit *)malloc(sizeof(t_fillit));
-	stock(s, list);
+	printf("ca marche wola");
 	return (0);
 }
