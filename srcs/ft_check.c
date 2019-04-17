@@ -6,7 +6,7 @@
 /*   By: jominodi <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/01 10:26:06 by jominodi     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/17 18:49:37 by thperchi    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/17 19:52:12 by thperchi    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -106,14 +106,12 @@ int				full_check(t_fillit *list)
 	t_val		*val;
 	char		**map;
 	t_fillit	*tmp;
-	char		c;
-	int			size;
 
 	val = (t_val *)malloc(sizeof(t_val));
 	val->x = 0;
 	tmp = list;
 	map = NULL;
-	c = 'A';
+	val->c = 'A';
 	while (list)
 	{
 		if (!check_s(list->s))
@@ -121,13 +119,13 @@ int				full_check(t_fillit *list)
 		val->x++;
 		list = list->next;
 	}
-	map = ft_map(val->x, map, &size);
+	map = ft_map(val->x, map, &val->size);
 	list = tmp;
 	list = ft_index(list, val);
-	while (ft_solver(list, map, c, size) == 0 && size++)
+	while (ft_solver(list, map, val->c, val->size) == 0 && val->size++)
 	{
 		free(map);
-		map = ft_map_upsize(size);
+		map = ft_map_upsize(val->size);
 	}
 	return (1);
 }

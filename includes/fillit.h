@@ -6,7 +6,7 @@
 /*   By: thperchi <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/11 19:05:38 by thperchi     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/17 16:35:33 by thperchi    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/17 19:50:25 by thperchi    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -43,6 +43,8 @@ typedef struct		s_value
 	int				ref_x;
 	int				ref_y;
 	int				check;
+	int				size;
+	char			c;
 }					t_val;
 
 int					full_check(t_fillit *list);
