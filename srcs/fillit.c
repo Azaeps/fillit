@@ -6,7 +6,7 @@
 /*   By: jominodi <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/01 10:25:59 by jominodi     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/17 17:19:45 by thperchi    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/19 17:28:31 by thperchi    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -19,14 +19,11 @@ void		error(void)
 	exit(1);
 }
 
-t_fillit	*stock(int fd, t_fillit *list)
+t_fillit	*stock(int fd, t_fillit *list, int y, int z)
 {
-	int			y;
-	int			z;
 	char		c;
 	t_fillit	*tmp;
 
-	y = 0;
 	z = read(fd, &c, 1);
 	tmp = list;
 	if (c != '.' && c != '#')
@@ -38,6 +35,8 @@ t_fillit	*stock(int fd, t_fillit *list)
 		list->s[y] = '\0';
 		if (c == '\n')
 			z = read(fd, &c, 1);
+		else
+			error();
 		y = 0;
 		if (c == '\0')
 			break ;
@@ -61,7 +60,7 @@ int			main(int ac, char **av)
 	if (!(fd = open(av[1], O_RDONLY)))
 		error();
 	list = (t_fillit *)malloc(sizeof(t_fillit));
-	list = stock(fd, list);
+	list = stock(fd, list, 0, 0);
 	if (full_check(list) == 0)
 		error();
 	return (0);

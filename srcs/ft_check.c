@@ -6,7 +6,7 @@
 /*   By: jominodi <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/01 10:26:06 by jominodi     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/17 19:52:12 by thperchi    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/19 15:51:34 by thperchi    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -74,15 +74,8 @@ static int		valid_tetri(int y, char *s, int x)
 	return (y);
 }
 
-static int		check_s(char *s)
+static int		check_s(char *s, int x, int y, int z)
 {
-	int x;
-	int y;
-	int z;
-
-	x = 0;
-	y = 0;
-	z = 0;
 	while (s[x])
 	{
 		if (s[x] == '#')
@@ -114,7 +107,7 @@ int				full_check(t_fillit *list)
 	val->c = 'A';
 	while (list)
 	{
-		if (!check_s(list->s))
+		if (!check_s(list->s, 0, 0, 0))
 			return (0);
 		val->x++;
 		list = list->next;

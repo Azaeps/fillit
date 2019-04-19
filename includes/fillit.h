@@ -6,7 +6,7 @@
 /*   By: thperchi <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/11 19:05:38 by thperchi     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/17 19:50:25 by thperchi    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/19 16:15:51 by thperchi    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -48,8 +48,6 @@ typedef struct		s_value
 }					t_val;
 
 int					full_check(t_fillit *list);
-t_fillit			*stock(int fd, t_fillit *list);
-int					num_char(char *str);
 void				error(void);
 char				**ft_map(int x, char **map, int *size);
 int					ft_solver(t_fillit *list, char **map, char c, int size);
