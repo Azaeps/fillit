@@ -36,7 +36,7 @@ t_fillit	*stock(int fd, t_fillit *list, int y, int z)
 		if (c == '\n')
 		{
 			z = read(fd, &c, 1);
-			if (z == '\0')
+			if (c == '\0')
 				error();
 		}
 		else
